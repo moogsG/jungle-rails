@@ -9,6 +9,7 @@ class OrdersController < ApplicationController
     order  = create_order(charge)
 
     if order.valid?
+      OrderMailer.order_email(order, current_user).deliver_later
       empty_cart!
       redirect_to order, notice: 'Your Order has been placed.'
     else
@@ -39,7 +40,7 @@ class OrdersController < ApplicationController
     order = Order.new(
       email: current_user.email,
       total_cents: cart_total,
-      stripe_charge_id: stripe_charge.id, # returned by stripe
+      stripe_charge_id: stripe_charge.id # returned by stripe
     )
     cart.each do |product_id, details|
       if product = Product.find_by(id: product_id)

@@ -1,8 +1,9 @@
 class OrderMailer < ApplicationMailer
   default from: 'norepy@jungle.com'
 
- def order_email(user)
+ def order_email(order, user)
    @user = user
-   mail(to: @user.email, subject: @order.id)
+   @subject = "Order: #{order.id}"
+   mail(to: @user.email, subject: @subject)
  end
 end

@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
 
   get '/login' => 'sessions#new'
-post '/login' => 'sessions#create'
-get '/logout' => 'sessions#destroy'
-resources :users
-get '/signup' => 'users#new'
+  post '/login' => 'sessions#create'
+  get '/logout' => 'sessions#destroy'
+  resources :users
+  get '/signup' => 'users#new'
 
   root to: 'products#index'
 
