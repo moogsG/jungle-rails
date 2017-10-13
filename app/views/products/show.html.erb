@@ -1,7 +1,9 @@
 <section class="products-show">
 
   <header class="page-header">
-    <h1><%= link_to @product.category.name, @product.category %> &raquo; <%= @product.name %></h1>
+    <h1><%= link_to @product.category.name, @product.category %>
+      &raquo;
+      <%= @product.name %></h1>
   </header>
 
   <article class="product-detail">
@@ -25,6 +27,38 @@
         </dl>
       </div>
     </div>
+
+
+    <%= render @reviews %>
+
+    <%= form_for(@review) do |f| %>
+    <div class="field">
+      <%= f.hidden_field :user_id, :value => "#{current_user.id}" %>
+    </div>
+    <div class="field">
+      <%= f.hidden_field :product_id, :value => "#{@product.id}" %>
+    </div>
+    <div class="field">
+      <%= f.label :description %><br>
+      <%= f.text_area :description %>
+    </div>
+    <div class="field">
+      <%= f.label :rating %><br>
+      <%= f.radio_button :rating, '1' %>
+      <%= f.label :rating, '1', :value => '1' %>
+      <%= f.radio_button :rating, '2' %>
+      <%= f.label :rating, '2', :value => '2' %>
+      <%= f.radio_button :rating, '3' %>
+      <%= f.label :rating, '3', :value => '3' %>
+      <%= f.radio_button :rating, '4' %>
+      <%= f.label :rating, '5', :value => '4' %>
+      <%= f.radio_button :rating, '2' %>
+      <%= f.label :rating, '5', :value => '5' %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+    <% end %>
 
   </article>
 
