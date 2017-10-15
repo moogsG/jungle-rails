@@ -22,12 +22,13 @@
           <dd><%= @product.description %></dd>
           <dt>Quantity</dt>
           <dd><%= @product.quantity %></dd>
+          <dt>Rating</dt>
+          <dd><%= @reviews.ids.avg %></dd>
           <dt>Price</dt>
           <dd><%= @product.price %></dd>
         </dl>
       </div>
     </div>
-
 
     <%= render @reviews %>
 

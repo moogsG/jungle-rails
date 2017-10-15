@@ -1,19 +1,14 @@
-<p>
-  <strong>Product:</strong>
-  <%= review.product_id %>
-</p>
 
 <p>
   <strong>User:</strong>
-  <%= review.user_id %>
+  <%= User.find(review.user_id).first_name %>
+</p>
+<p>
+  <strong>Rating:</strong>
+  <%= review.rating %>
 </p>
 
 <p>
   <strong>Description:</strong>
   <%= review.description %>
-</p>
-
-<p>
-  <strong>Rating:</strong>
-  <%= review.rating %>
 </p>
