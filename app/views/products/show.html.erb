@@ -23,7 +23,7 @@
           <dt>Quantity</dt>
           <dd><%= @product.quantity %></dd>
           <dt>Rating</dt>
-          <dd><%= @reviews.ids.avg %></dd>
+          <dd><%= @reviews.average(:rating) %></dd>
           <dt>Price</dt>
           <dd><%= @product.price %></dd>
         </dl>
