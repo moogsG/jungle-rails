@@ -1,23 +1,32 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  describe "Passwords dont match" do
-    it "passwords dont match" do
-      user = User.new(email: "morgan@asdf.com", password: "password", password_confirmation: "notpassword")
-      expect(user).to_not be_valid
-    end
-  end
-  describe "Passwords do match" do
-    it "passwords match" do
-      user = User.new(email: "morgan@asdf.com", password: "password", password_confirmation: "password")
-      expect(user).to be_valid
-    end
+  describe "Password validation" do
+    it { should validate_length_of(:password).is_at_least(6).on(:create)}
+    it { should validate_presence_of(:password)}
+    it { should validate_confirmation_of(:password)}
   end
 
   describe "Unique Email" do
-    describe User, 'validations' do
-      it { should validate_uniqueness_of(:email).case_sensitive}
+    it { should validate_presence_of(:email)}
+    it { should validate_uniqueness_of(:email).case_insensitive}
+  end
 
+  describe "First name && last name" do
+    it { should validate_presence_of(:last_name)}
+    it { should validate_presence_of(:first_name)}
+  end
+
+  describe '.authenticate_with_credentials' do
+    describe do
+    it "email with spaces" do
+      user =  User.new(email: 'asdfasdf@asdf.com', password: 'asdfasdf', last_name: "asdf", first_name: "bob")
+      user.save!
+      login = User.authenticate_with_credentials(' AsDfaSdf@asdf.com ', 'asdfasdf')
+
+      expect(login).to have_attributes(:email => 'asdfasdf@asdf.com')
     end
   end
+ end
+
 end
